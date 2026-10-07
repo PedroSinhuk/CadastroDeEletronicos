@@ -28,7 +28,7 @@ public class EletronicosModel {
 
     //@ManyToOne - um eletronico para somente uma unica marca
     @ManyToOne
-    @JoinColumn(name = "marca_id")
+    @JoinColumn(name = "marca_id")//Foreing Key
     @ToString.Exclude
     private MarcaModel marcaModel;
 
