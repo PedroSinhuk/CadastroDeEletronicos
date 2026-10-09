@@ -1,5 +1,7 @@
 package Projeto.CadastroDeEletronicos.Marca;
 
-public interface MarcaRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface MarcaRepository extends JpaRepository <MarcaModel, Long> {
 
 }
