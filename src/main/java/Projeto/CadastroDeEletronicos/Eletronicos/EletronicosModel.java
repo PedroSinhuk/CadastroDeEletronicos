@@ -30,6 +30,6 @@ public class EletronicosModel {
     @ManyToOne
     @JoinColumn(name = "marca_id")//Foreing Key
     @ToString.Exclude
-    private MarcaModel marcaModel;
+    private MarcaModel marca;
 
 }
