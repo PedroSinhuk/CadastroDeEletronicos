@@ -3,7 +3,7 @@ package Projeto.CadastroDeEletronicos.Eletronicos;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("eletronicos")
 
 public class EletronicosController {
 
