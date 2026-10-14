@@ -9,12 +9,16 @@ import java.util.List;
 
 public class EletronicosController {
 
-    EletronicosService eletronicosService;
+    private EletronicosService eletronicosService;
+
+    public EletronicosController(EletronicosService eletronicosService) {
+        this.eletronicosService = eletronicosService;
+    }
 
     //adicionar eletronico-CREATE
     @PostMapping("/criar")
-    public String criarEletronico() {
-        return "Eletronico criado";
+    public EletronicosModel criarEletronico(@RequestBody EletronicosModel eletronicos) {//@RequestBody para serializar para o banco de dados
+        return eletronicosService.criarEletronico(eletronicos);
     }
 
     //Procurar eletronico por ID
