@@ -1,8 +1,8 @@
 package Projeto.CadastroDeEletronicos.Eletronicos;
 
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
 
 @RestController
 @RequestMapping("eletronicos")
@@ -43,9 +43,9 @@ public class EletronicosController {
 
 
     //Deletar eletronico-DELETE
-    @DeleteMapping("/deletarID")
-    public String deletarEletronicoId() {
-        return "Eletronico deletado";
+    @DeleteMapping("/deletar/{id}")
+    public void  deletarEletronicoId(@PathVariable Long id) {
+       eletronicosService.deletarEletronicoPorId(id);
     }
 
 

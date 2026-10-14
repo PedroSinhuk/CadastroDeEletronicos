@@ -30,4 +30,9 @@ public class EletronicosService {
     public EletronicosModel criarEletronico (EletronicosModel eletronicos){
         return eletronicosRepository.save(eletronicos);
     }
+
+    //Deletar eletronicos Por Id
+    public void deletarEletronicoPorId(Long id){
+       eletronicosRepository.deleteById(id);
+    }
 }
