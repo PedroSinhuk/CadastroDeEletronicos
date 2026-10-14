@@ -2,10 +2,14 @@ package Projeto.CadastroDeEletronicos.Eletronicos;
 
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("eletronicos")
 
 public class EletronicosController {
+
+    EletronicosService eletronicosService;
 
     //adicionar eletronico-CREATE
     @PostMapping("/criar")
@@ -14,16 +18,17 @@ public class EletronicosController {
     }
 
     //Procurar eletronico por ID
-    @GetMapping("listarPorID")
-    public String listarPorId() {
-        return "Listar eletronico por ID ";
+    @GetMapping("/listar/{id}")
+    public EletronicosModel listarPorId(@PathVariable Long id) {
+        return eletronicosService.listarEletronicoPorId(id);
+
     }
 
 
     //Listar eletronicos-READ
     @GetMapping("/listar")
-    public String listarTodos() {
-        return "Listar todos";
+    public List<EletronicosModel> ListlistarTodos() {
+        return eletronicosService.listarEletronicos();
     }
 
     //alterar eletronicos-UPDATE
