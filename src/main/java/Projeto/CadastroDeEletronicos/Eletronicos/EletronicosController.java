@@ -36,9 +36,9 @@ public class EletronicosController {
     }
 
     //alterar eletronicos-UPDATE
-    @PutMapping("/alterarID")
-    public String alterarDadosId() {
-        return "Dados alterado";
+    @PutMapping("/alterar/{id}")
+    public EletronicosModel alterarDadosId(@PathVariable Long id, @RequestBody EletronicosModel eletronicosAtualizado) {
+        return eletronicosService.atualizarPorId(id, eletronicosAtualizado);
     }
 
 

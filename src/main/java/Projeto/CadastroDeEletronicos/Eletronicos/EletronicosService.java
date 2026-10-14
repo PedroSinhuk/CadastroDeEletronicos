@@ -35,4 +35,13 @@ public class EletronicosService {
     public void deletarEletronicoPorId(Long id){
        eletronicosRepository.deleteById(id);
     }
+
+    //Atualizar eletronico por Id
+    public EletronicosModel atualizarPorId( Long id, EletronicosModel eletronicosAtualizado){
+        if(eletronicosRepository.existsById(id)){
+            eletronicosAtualizado.setId(id);
+            return eletronicosRepository.save(eletronicosAtualizado);
+        }
+        return null;
+    }
 }
