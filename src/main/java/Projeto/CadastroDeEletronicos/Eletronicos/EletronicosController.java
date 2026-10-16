@@ -17,7 +17,7 @@ public class EletronicosController {
 
     //adicionar eletronico-CREATE
     @PostMapping("/criar")
-    public EletronicosModel criarEletronico(@RequestBody EletronicosModel eletronicos) {//@RequestBody para serializar para o banco de dados
+    public EletronicosDTO criarEletronico(@RequestBody EletronicosDTO eletronicos) {//@RequestBody para serializar para o banco de dados
         return eletronicosService.criarEletronico(eletronicos);
     }
 

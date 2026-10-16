@@ -9,9 +9,11 @@ import java.util.Optional;
 public class EletronicosService {
 
     private EletronicosRepository eletronicosRepository;
+    private EletronicosMapper eletronicosMapper;
 
-    public EletronicosService(EletronicosRepository eletronicosRepository) {
+    public EletronicosService(EletronicosRepository eletronicosRepository, EletronicosMapper eletronicosMapper) {
         this.eletronicosRepository = eletronicosRepository;
+        this.eletronicosMapper = eletronicosMapper;
     }
 
     //Listar eletronicos
@@ -27,8 +29,10 @@ public class EletronicosService {
 
 
     //Criar Eletronico
-    public EletronicosModel criarEletronico (EletronicosModel eletronicos){
-        return eletronicosRepository.save(eletronicos);
+    public EletronicosDTO criarEletronico (EletronicosDTO eletronicosDTO){
+        EletronicosModel eletronicos = eletronicosMapper.map(eletronicosDTO);
+        eletronicos = eletronicosRepository.save(eletronicos);
+        return eletronicosMapper.map(eletronicos);
     }
 
     //Deletar eletronicos Por Id
