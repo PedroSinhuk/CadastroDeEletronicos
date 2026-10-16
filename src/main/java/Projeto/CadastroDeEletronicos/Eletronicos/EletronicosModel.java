@@ -35,6 +35,9 @@ public class EletronicosModel {
     @Column(name = "Valor", precision = 10, scale = 2)//Cria coluna valor, com 10 casas decimais e 2 casas depois da virgula.
     private BigDecimal valor;
 
+    @Column(name = "ano")
+    private Integer ano;
+
     //@ManyToOne - um eletronico para somente uma unica marca
     @ManyToOne
     @JoinColumn(name = "marca_id")//Foreing Key
