@@ -17,13 +17,13 @@ public class EletronicosController {
 
     //adicionar eletronico-CREATE
     @PostMapping("/criar")
-    public EletronicosModel criarEletronico(@RequestBody EletronicosModel eletronicos) {//@RequestBody para serializar para o banco de dados
+    public EletronicosDTO criarEletronico(@RequestBody EletronicosDTO eletronicos) {//@RequestBody para serializar para o banco de dados
         return eletronicosService.criarEletronico(eletronicos);
     }
 
     //Procurar eletronico por ID
     @GetMapping("/listar/{id}")
-    public EletronicosModel listarPorId(@PathVariable Long id) {
+    public EletronicosDTO listarPorId(@PathVariable Long id) {
         return eletronicosService.listarEletronicoPorId(id);
 
     }
@@ -31,13 +31,13 @@ public class EletronicosController {
 
     //Listar eletronicos-READ
     @GetMapping("/listar")
-    public List<EletronicosModel> ListlistarTodos() {
+    public List<EletronicosDTO> ListlistarTodos() {
         return eletronicosService.listarEletronicos();
     }
 
     //alterar eletronicos-UPDATE
     @PutMapping("/alterar/{id}")
-    public EletronicosModel alterarDadosId(@PathVariable Long id, @RequestBody EletronicosModel eletronicosAtualizado) {
+    public EletronicosDTO alterarDadosId(@PathVariable Long id, @RequestBody EletronicosDTO eletronicosAtualizado) {
         return eletronicosService.atualizarPorId(id, eletronicosAtualizado);
     }
 
