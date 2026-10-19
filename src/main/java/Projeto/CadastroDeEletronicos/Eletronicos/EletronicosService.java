@@ -9,8 +9,8 @@ import java.util.stream.Collectors;
 @Service
 public class EletronicosService {
 
-    private EletronicosRepository eletronicosRepository;
-    private EletronicosMapper eletronicosMapper;
+    private final EletronicosRepository eletronicosRepository;
+    private final EletronicosMapper eletronicosMapper;
 
     public EletronicosService(EletronicosRepository eletronicosRepository, EletronicosMapper eletronicosMapper) {
         this.eletronicosRepository = eletronicosRepository;

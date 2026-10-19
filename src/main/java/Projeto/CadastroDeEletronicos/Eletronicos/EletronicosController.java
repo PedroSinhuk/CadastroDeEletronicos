@@ -14,7 +14,7 @@ import java.util.List;
 
 public class EletronicosController {
 
-    private EletronicosService eletronicosService;
+    private final EletronicosService eletronicosService;
 
     public EletronicosController(EletronicosService eletronicosService) {
         this.eletronicosService = eletronicosService;
