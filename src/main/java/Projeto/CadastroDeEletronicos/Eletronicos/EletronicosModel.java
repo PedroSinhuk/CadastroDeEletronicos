@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@ToString(exclude = "marca")
 public class EletronicosModel {
 
     @Id
