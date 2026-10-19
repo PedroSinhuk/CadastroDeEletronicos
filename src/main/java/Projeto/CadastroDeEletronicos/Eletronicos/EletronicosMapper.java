@@ -13,6 +13,7 @@ public class EletronicosMapper {
         eletronicosModel.setValor(eletronicosDTO.getValor());
         eletronicosModel.setAno(eletronicosDTO.getAno());
         eletronicosModel.setTipoEletronico(eletronicosDTO.getTipoEletronico());
+        eletronicosModel.setMarca(eletronicosDTO.getMarca());
 
         return eletronicosModel;
     }
@@ -25,6 +26,7 @@ public class EletronicosMapper {
         eletronicosDTO.setValor(eletronicosModel.getValor());
         eletronicosDTO.setAno(eletronicosModel.getAno());
         eletronicosDTO.setTipoEletronico(eletronicosModel.getTipoEletronico());
+        eletronicosDTO.setMarca(eletronicosModel.getMarca());
 
         return eletronicosDTO;
     }
