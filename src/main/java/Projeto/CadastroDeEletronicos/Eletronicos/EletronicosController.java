@@ -10,7 +10,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("eletronicos")
+@RequestMapping("/eletronicos")
 
 public class EletronicosController {
 
