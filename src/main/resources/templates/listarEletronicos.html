@@ -1,10 +1,142 @@
-<!
-<html>
-<head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-    <title>Tabela de Eletronicos</title>
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head('Catálogo de eletrônicos')}">
 </head>
 <body>
-
+<aside th:replace="~{fragmentos :: sidebar}">
+</aside>
+<main class="main">
+<header th:replace="~{fragmentos :: topbar('Catálogo')}">
+</header>
+<section class="page-heading">
+<div>
+<p class="eyebrow">SEU INVENTÁRIO, ORGANIZADO</p>
+<h1>Eletrônicos</h1>
+<p>Todos os seus dispositivos em um só lugar.</p>
+</div>
+<a class="button primary" th:href="@{/eletronicos/ui/novo}">＋ Novo eletrônico</a>
+</section>
+<div class="notice" role="status" th:if="${param.naoEncontrado}">O eletrônico solicitado não foi encontrado.</div>
+<div class="notice success" role="status" th:if="${param.salvo}">Eletrônico salvo com sucesso.</div>
+<div class="notice success" role="status" th:if="${param.excluido}">Eletrônico excluído com sucesso.</div>
+<section class="stats" aria-label="Resumo do catálogo">
+<article class="stat">
+<span class="stat-icon">▦</span>
+<div>
+<p>Total de eletrônicos</p>
+<strong th:text="${#lists.size(eletronicos)}">0</strong>
+<small>Dispositivos cadastrados</small>
+</div>
+</article>
+<article class="stat">
+<span class="stat-icon purple">◈</span>
+<div>
+<p>Categorias no catálogo</p>
+<strong id="category-count">0</strong>
+<small>Tipos de dispositivos</small>
+</div>
+</article>
+<article class="stat">
+<span class="stat-icon green">R$</span>
+<div>
+<p>Valor total cadastrado</p>
+<strong id="total-value">R$ 0,00</strong>
+<small>Soma dos valores informados</small>
+</div>
+</article>
+</section>
+<section class="panel">
+<div class="panel-heading">
+<div>
+<h2>Catálogo de dispositivos <span class="count" th:text="${#lists.size(eletronicos)}">0</span>
+</h2>
+<p>Consulte e gerencie seus eletrônicos.</p>
+</div>
+<span class="subtle">Inventário geral</span>
+</div>
+<div class="filters">
+<label class="search">
+<span aria-hidden="true">⌕</span>
+<input id="search" type="search" placeholder="Buscar por nome, marca ou ID…" aria-label="Buscar eletrônicos">
+</label>
+<label>
+<span class="sr-only">Categoria</span>
+<select id="category">
+<option value="">Todas as categorias</option>
+<option value="CELULAR">Celular</option>
+<option value="NOTEBOOK">Notebook</option>
+<option value="TV">TV</option>
+<option value="TABLET">Tablet</option>
+<option value="MONITOR">Monitor</option>
+<option value="DISPOSITIVO_DE_SOM">Dispositivo de som</option>
+</select>
+</label>
+</div>
+<div class="table-scroll">
+<table>
+<caption class="sr-only">Eletrônicos cadastrados</caption>
+<thead>
+<tr>
+<th>Dispositivo</th>
+<th>Categoria</th>
+<th>Marca</th>
+<th>Cor</th>
+<th>Ano</th>
+<th class="numeric">Valor</th>
+<th>Ações</th>
+</tr>
+</thead>
+<tbody id="devices">
+<tr th:each="item : ${eletronicos}" th:attr="data-category=${item.tipoEletronico},data-value=${item.valor},data-search=${item.nome + ' ' + item.id + ' ' + (item.marca != null ? item.marca.nome : '')}">
+<td>
+<div class="device">
+<span class="device-icon" aria-hidden="true">▣</span>
+<div>
+<a class="device-name" th:href="@{/eletronicos/ui/listar/{id}(id=${item.id})}" th:text="${item.nome}">
+</a>
+<small th:text="'ID #' + ${item.id}">
+</small>
+</div>
+</div>
+</td>
+<td>
+<span class="badge" th:text="${item.tipoEletronico != null ? #strings.replace(#strings.toLowerCase(item.tipoEletronico.name()), '_', ' ') : 'Não informado'}">
+</span>
+</td>
+<td th:text="${item.marca != null ? item.marca.nome : 'Não informada'}">
+</td>
+<td th:text="${item.cor ?: '—'}">
+</td>
+<td th:text="${item.ano ?: '—'}">
+</td>
+<td class="numeric money" th:attr="data-money=${item.valor}" th:text="${item.valor ?: '—'}">
+</td>
+<td>
+<div class="row-actions">
+<a th:href="@{/eletronicos/ui/listar/{id}(id=${item.id})}" th:aria-label="'Ver detalhes de ' + ${item.nome}">Ver</a>
+<a th:href="@{/eletronicos/ui/editar/{id}(id=${item.id})}" th:aria-label="'Editar ' + ${item.nome}">Editar</a>
+<button class="delete-link" type="button" th:attr="data-delete=${item.id},data-name=${item.nome}" th:aria-label="'Excluir ' + ${item.nome}">Excluir</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="empty" id="empty" th:hidden="${!#lists.isEmpty(eletronicos)}">
+<span aria-hidden="true">▤</span>
+<h3 id="empty-title">Seu catálogo começa aqui</h3>
+<p id="empty-description">Cadastre seu primeiro eletrônico para organizar seus dispositivos.</p>
+<a th:href="@{/eletronicos/ui/novo}" class="button secondary">Cadastrar eletrônico</a>
+</div>
+<footer class="table-footer">
+<span id="results" aria-live="polite">
+</span>
+<span>Cadastro de Eletrônicos</span>
+</footer>
+</section>
+<footer class="page-footer">Organização para cada dispositivo.</footer>
+</main>
+<div th:replace="~{fragmentos :: deleteDialog}">
+</div>
 </body>
 </html>

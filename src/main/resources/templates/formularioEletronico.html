@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head(${eletronicos.id != null ? 'Editar eletrônico' : 'Novo eletrônico'})}">
+</head>
+<body>
+<aside th:replace="~{fragmentos :: sidebar}">
+</aside>
+<main class="main">
+<header th:replace="~{fragmentos :: topbar('Cadastro')}">
+</header>
+<a class="back-link" th:href="@{/eletronicos/ui/listar}">← Voltar ao catálogo</a>
+<section class="page-heading">
+<div>
+<p class="eyebrow">CADA DETALHE NO SEU LUGAR</p>
+<h1 th:text="${eletronicos.id != null ? 'Editar eletrônico' : 'Novo eletrônico'}">
+</h1>
+<p>Preencha as informações do dispositivo para manter seu catálogo em dia.</p>
+</div>
+</section>
+<section class="panel form-panel">
+<div class="panel-heading">
+<div>
+<h2>Informações do dispositivo</h2>
+<p>Os campos com * são obrigatórios.</p>
+</div>
+<span class="stat-icon">▣</span>
+</div>
+<form id="device-form" th:object="${eletronicos}" th:attr="data-id=${eletronicos.id},data-brand-id=${eletronicos.marca != null ? eletronicos.marca.id : ''}">
+<div class="form-grid">
+<label class="full">Nome do eletrônico *<input th:field="*{nome}" required maxlength="255" placeholder="Ex.: Galaxy S24, MacBook Air…">
+</label>
+<label>Categoria *<select th:field="*{tipoEletronico}" required>
+<option value="">Selecione uma categoria</option>
+<option th:each="tipo : ${tipos}" th:value="${tipo}" th:text="${#strings.capitalize(#strings.replace(#strings.toLowerCase(tipo.name()), '_', ' '))}">
+</option>
+</select>
+</label>
+<label>Cor<input th:field="*{cor}" maxlength="255" placeholder="Ex.: Preto">
+</label>
+<label>Valor (R$) *<input th:field="*{valor}" type="number" min="0" max="99999999.99" step="0.01" required placeholder="0,00">
+</label>
+<label>Ano<input th:field="*{ano}" type="number" min="1900" max="2100" step="1" placeholder="Ex.: 2026">
+</label>
+<div class="field-note full">
+<strong>Marca</strong>
+<p th:text="${eletronicos.marca != null ? 'Marca vinculada: ' + eletronicos.marca.nome + '. O vínculo será mantido.' : 'O dispositivo será cadastrado sem marca. O gerenciamento de marcas ainda não está disponível.'}">
+</p>
+</div>
+</div>
+<p class="form-error" id="form-error" role="alert">
+</p>
+<div class="form-actions">
+<a class="button secondary" th:href="@{/eletronicos/ui/listar}">Cancelar</a>
+<button class="button primary" type="submit" id="save-button">Salvar eletrônico</button>
+</div>
+</form>
+</section>
+</main>
+</body>
+</html>

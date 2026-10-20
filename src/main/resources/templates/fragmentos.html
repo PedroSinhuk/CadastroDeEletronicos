@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title th:text="${title} + ' | Eletro'">Eletro</title>
+<link rel="stylesheet" th:href="@{/css/eletronicos.css}">
+<script defer th:src="@{/js/eletronicos.js}">
+</script>
+</head>
+<body>
+<aside class="sidebar" th:fragment="sidebar">
+<a class="brand" th:href="@{/eletronicos/ui/listar}">
+<span class="brand-icon">ϟ</span>
+<span>eletro<span class="brand-dot">.</span>
+<small>CADASTRO DE ELETRÔNICOS</small>
+</span>
+</a>
+<p class="nav-label">PRINCIPAL</p>
+<nav aria-label="Menu principal">
+<a class="nav-item active" th:href="@{/eletronicos/ui/listar}">
+<span aria-hidden="true">▦</span> Eletrônicos</a>
+<a class="nav-item" th:href="@{/eletronicos/ui/novo}">
+<span aria-hidden="true">＋</span> Novo cadastro</a>
+</nav>
+<div class="sidebar-note">
+<span>◈</span>
+<strong>Um lugar para tudo.</strong>
+<p>Seu catálogo de tecnologia, sempre à mão.</p>
+</div>
+<div class="sidebar-footer">
+<span class="status-dot">
+</span> Gestão de dispositivos</div>
+</aside>
+<header class="topbar" th:fragment="topbar(page)">
+<span>Workspace <span class="slash">/</span> <strong th:text="${page}">Catálogo</strong>
+</span>
+<span class="workspace-label">
+<span class="avatar">E</span> Meu inventário</span>
+</header>
+<div th:fragment="deleteDialog">
+<dialog id="delete-dialog">
+<form method="dialog">
+<span class="dialog-icon">!</span>
+<h2>Excluir eletrônico?</h2>
+<p>O dispositivo <strong id="delete-name">
+</strong> será removido do catálogo. Essa ação não pode ser desfeita.</p>
+<p class="form-error" id="delete-error" role="alert">
+</p>
+<div class="form-actions">
+<button class="button secondary" value="cancel">Cancelar</button>
+<button class="button danger" id="confirm-delete" type="button">Sim, excluir</button>
+</div>
+</form>
+</dialog>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head('Detalhes do eletrônico')}">
+</head>
+<body>
+<aside th:replace="~{fragmentos :: sidebar}">
+</aside>
+<main class="main">
+<header th:replace="~{fragmentos :: topbar('Detalhes')}">
+</header>
+<a class="back-link" th:href="@{/eletronicos/ui/listar}">← Voltar ao catálogo</a>
+<section class="page-heading">
+<div>
+<p class="eyebrow">CONHEÇA SEU DISPOSITIVO</p>
+<h1 th:text="${eletronicos.nome}">
+</h1>
+<p th:text="'Eletrônico #' + ${eletronicos.id}">
+</p>
+</div>
+<a class="button primary" th:href="@{/eletronicos/ui/editar/{id}(id=${eletronicos.id})}">Editar eletrônico</a>
+</section>
+<section class="panel detail-panel">
+<div class="detail-hero">
+<span class="big-device" aria-hidden="true">▣</span>
+<span class="badge" th:text="${eletronicos.tipoEletronico != null ? #strings.replace(#strings.toLowerCase(eletronicos.tipoEletronico.name()), '_', ' ') : 'Sem categoria'}">
+</span>
+<h2 th:text="${eletronicos.nome}">
+</h2>
+<strong class="detail-price money" th:attr="data-money=${eletronicos.valor}" th:text="${eletronicos.valor ?: 'Não informado'}">
+</strong>
+</div>
+<div class="detail-info">
+<h2>Ficha do dispositivo</h2>
+<dl>
+<div>
+<dt>ID do cadastro</dt>
+<dd th:text="'#' + ${eletronicos.id}">
+</dd>
+</div>
+<div>
+<dt>Marca</dt>
+<dd th:text="${eletronicos.marca != null ? eletronicos.marca.nome : 'Não informada'}">
+</dd>
+</div>
+<div>
+<dt>Cor</dt>
+<dd th:text="${eletronicos.cor ?: 'Não informada'}">
+</dd>
+</div>
+<div>
+<dt>Ano</dt>
+<dd th:text="${eletronicos.ano ?: 'Não informado'}">
+</dd>
+</div>
+</dl>
+<button class="button danger-outline" type="button" th:attr="data-delete=${eletronicos.id},data-name=${eletronicos.nome}">Excluir eletrônico</button>
+</div>
+</section>
+</main>
+<div th:replace="~{fragmentos :: deleteDialog}">
+</div>
+</body>
+</html>

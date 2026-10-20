@@ -26,7 +26,7 @@ public class EletronicosControllerUi {
     public String ListlistarTodos(Model model) {
         List<EletronicosDTO> eletronicos = eletronicosService.listarEletronicos();
         model.addAttribute("eletronicos", eletronicos);
-        return "listar eletronicos";
+        return "listarEletronicos";
     }
 
     @DeleteMapping("/deletar/{id}")
@@ -41,10 +41,26 @@ public class EletronicosControllerUi {
             model.addAttribute("eletronicos", eletronicos);
             return "detalhes";
         }else{
-            model.addAttribute("mensagem", "Eletronico não encontrado");
-            return "listarEletronicos";
+            return "redirect:/eletronicos/ui/listar?naoEncontrado";
         }
 
 
+    }
+    @GetMapping("/novo")
+    public String novo(Model model) {
+        model.addAttribute("eletronicos", new EletronicosDTO());
+        model.addAttribute("tipos", TipoEletronico.values());
+        return "formularioEletronico";
+    }
+
+    @GetMapping("/editar/{id}")
+    public String editar(@PathVariable Long id, Model model) {
+        EletronicosDTO eletronico = eletronicosService.listarEletronicoPorId(id);
+        if (eletronico == null) {
+            return "redirect:/eletronicos/ui/listar?naoEncontrado";
+        }
+        model.addAttribute("eletronicos", eletronico);
+        model.addAttribute("tipos", TipoEletronico.values());
+        return "formularioEletronico";
     }
 }
