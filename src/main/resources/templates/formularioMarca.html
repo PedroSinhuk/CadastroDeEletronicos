@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head(${marca.id != null ? 'Editar marca' : 'Nova marca'})}"></head>
+<body>
+<aside th:replace="~{fragmentos :: sidebar}"></aside>
+<main class="main">
+    <header th:replace="~{fragmentos :: topbar('Cadastro de marca')}"></header>
+    <a class="back-link" th:href="@{/marca/ui/listar}">← Voltar às marcas</a>
+    <section class="page-heading"><div><p class="eyebrow">IDENTIDADE PARA SEUS DISPOSITIVOS</p><h1 th:text="${marca.id != null ? 'Editar marca' : 'Nova marca'}"></h1><p>Informe o nome da marca para manter seu catálogo organizado.</p></div></section>
+    <section class="panel form-panel">
+        <div class="panel-heading"><div><h2>Informações da marca</h2><p>O campo com * é obrigatório.</p></div><span class="stat-icon purple" aria-hidden="true">◈</span></div>
+        <form id="brand-form" th:object="${marca}" th:attr="data-id=${marca.id}">
+            <div class="form-grid"><label class="full">Nome da marca *<input th:field="*{nome}" required maxlength="255" placeholder="Ex.: Samsung, Apple, Lenovo…" autocomplete="off"></label></div>
+            <p class="form-error" id="brand-form-error" role="alert"></p>
+            <div class="form-actions"><a class="button secondary" th:href="@{/marca/ui/listar}">Cancelar</a><button class="button primary" id="brand-save" type="submit">Salvar marca</button></div>
+        </form>
+    </section>
+</main>
+<script defer th:src="@{/js/marcas.js}"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head('Marcas')}"></head>
+<body>
+<aside th:replace="~{fragmentos :: sidebar}"></aside>
+<main class="main">
+    <header th:replace="~{fragmentos :: topbar('Marcas')}"></header>
+    <section class="page-heading">
+        <div><p class="eyebrow">AS MARCAS DO SEU CATÁLOGO</p><h1>Marcas</h1><p>Organize os fabricantes dos seus dispositivos.</p></div>
+        <a class="button primary" th:href="@{/marca/ui/novo}">＋ Nova marca</a>
+    </section>
+    <div class="notice" role="status" th:if="${param.naoEncontrado}">A marca solicitada não foi encontrada.</div>
+    <div class="notice success" role="status" th:if="${param.salvo}">Marca salva com sucesso.</div>
+    <div class="notice success" role="status" th:if="${param.excluido}">Marca excluída com sucesso.</div>
+    <section class="panel">
+        <div class="panel-heading"><div><h2>Marcas cadastradas <span class="count" th:text="${#lists.size(marcas)}">0</span></h2><p>Consulte, edite e veja os dispositivos de cada marca.</p></div><span class="stat-icon purple" aria-hidden="true">◈</span></div>
+        <div class="filters"><label class="search"><span aria-hidden="true">⌕</span><input id="brand-search" type="search" placeholder="Buscar por nome ou ID…" aria-label="Buscar marcas"></label></div>
+        <div class="table-scroll">
+            <table>
+                <caption class="sr-only">Marcas cadastradas</caption>
+                <thead><tr><th>Marca</th><th>ID</th><th>Dispositivos vinculados</th><th>Ações</th></tr></thead>
+                <tbody id="brands">
+                    <tr th:each="item : ${marcas}" th:attr="data-search=${item.nome + ' ' + item.id}">
+                        <td><div class="device"><span class="device-icon" aria-hidden="true">◈</span><a class="device-name" th:href="@{/marca/ui/listar/{id}(id=${item.id})}" th:text="${item.nome}"></a></div></td>
+                        <td th:text="'#' + ${item.id}"></td>
+                        <td><span class="badge" th:text="${item.eletroicos != null ? #lists.size(item.eletroicos) : 0}"></span></td>
+                        <td><div class="row-actions"><a th:href="@{/marca/ui/listar/{id}(id=${item.id})}" th:aria-label="'Ver detalhes de ' + ${item.nome}">Ver</a><a th:href="@{/marca/ui/editar/{id}(id=${item.id})}" th:aria-label="'Editar ' + ${item.nome}">Editar</a><button class="delete-link" type="button" th:attr="data-brand-delete=${item.id},data-name=${item.nome}" th:aria-label="'Excluir ' + ${item.nome}">Excluir</button></div></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="empty" id="brand-empty" th:hidden="${!#lists.isEmpty(marcas)}"><span aria-hidden="true">◈</span><h3 id="brand-empty-title">Sua primeira marca começa aqui</h3><p id="brand-empty-description">Cadastre uma marca para organizar seu catálogo.</p><a class="button secondary" th:href="@{/marca/ui/novo}">Cadastrar marca</a></div>
+        <footer class="table-footer"><span id="brand-results" aria-live="polite"></span><span>Cadastro de Eletrônicos</span></footer>
+    </section>
+    <footer class="page-footer">Organização para cada dispositivo.</footer>
+</main>
+<div th:replace="~{fragmentos :: deleteBrandDialog}"></div>
+<script defer th:src="@{/js/marcas.js}"></script>
+</body>
+</html>

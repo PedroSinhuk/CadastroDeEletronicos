@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragmentos :: head('Detalhes da marca')}"></head>
+<body>
+<aside th:replace="~{fragmentos :: sidebar}"></aside>
+<main class="main">
+    <header th:replace="~{fragmentos :: topbar('Detalhes da marca')}"></header>
+    <a class="back-link" th:href="@{/marca/ui/listar}">← Voltar às marcas</a>
+    <section class="page-heading"><div><p class="eyebrow">AS MARCAS DO SEU CATÁLOGO</p><h1 th:text="${marca.nome}"></h1><p th:text="'Marca #' + ${marca.id}"></p></div><a class="button primary" th:href="@{/marca/ui/editar/{id}(id=${marca.id})}">Editar marca</a></section>
+    <section class="panel">
+        <div class="panel-heading"><div><h2>Dispositivos vinculados <span class="count" th:text="${marca.eletroicos != null ? #lists.size(marca.eletroicos) : 0}"></span></h2><p>Eletrônicos cadastrados com esta marca.</p></div><span class="stat-icon purple" aria-hidden="true">◈</span></div>
+        <div class="table-scroll" th:if="${marca.eletroicos != null and !#lists.isEmpty(marca.eletroicos)}"><table>
+            <caption class="sr-only">Eletrônicos desta marca</caption>
+            <thead><tr><th>Dispositivo</th><th>Categoria</th><th>Ano</th><th class="numeric">Valor</th><th>Ações</th></tr></thead>
+            <tbody><tr th:each="item : ${marca.eletroicos}"><td><a class="device-name" th:href="@{/eletronicos/ui/listar/{id}(id=${item.id})}" th:text="${item.nome}"></a></td><td><span class="badge" th:text="${item.tipoEletronico != null ? #strings.replace(#strings.toLowerCase(item.tipoEletronico.name()), '_', ' ') : 'Não informado'}"></span></td><td th:text="${item.ano ?: '—'}"></td><td class="numeric money" th:attr="data-money=${item.valor}" th:text="${item.valor ?: '—'}"></td><td><a th:href="@{/eletronicos/ui/listar/{id}(id=${item.id})}" th:aria-label="'Ver detalhes de ' + ${item.nome}">Ver detalhes</a></td></tr></tbody>
+        </table></div>
+        <div class="empty" th:if="${marca.eletroicos == null or #lists.isEmpty(marca.eletroicos)}"><span aria-hidden="true">▣</span><h3>Nenhum dispositivo vinculado</h3><p>Esta marca ainda não possui eletrônicos associados.</p></div>
+        <div class="form-actions"><button class="button danger-outline" type="button" th:attr="data-brand-delete=${marca.id},data-name=${marca.nome}">Excluir marca</button></div>
+    </section>
+</main>
+<div th:replace="~{fragmentos :: deleteBrandDialog}"></div>
+<script defer th:src="@{/js/marcas.js}"></script>
+</body>
+</html>

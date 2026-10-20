@@ -18,10 +18,11 @@
 </a>
 <p class="nav-label">PRINCIPAL</p>
 <nav aria-label="Menu principal">
-<a class="nav-item active" th:href="@{/eletronicos/ui/listar}">
+<a class="nav-item" th:classappend="${secao != 'marcas'} ? 'active'" th:href="@{/eletronicos/ui/listar}">
 <span aria-hidden="true">▦</span> Eletrônicos</a>
 <a class="nav-item" th:href="@{/eletronicos/ui/novo}">
 <span aria-hidden="true">＋</span> Novo cadastro</a>
+<a class="nav-item" th:classappend="${secao == 'marcas'} ? 'active'" th:href="@{/marca/ui/listar}"><span aria-hidden="true">◈</span> Marcas</a>
 </nav>
 <div class="sidebar-note">
 <span>◈</span>
@@ -53,6 +54,18 @@
 </div>
 </form>
 </dialog>
+</div>
+<div th:fragment="deleteBrandDialog">
+    <dialog id="brand-delete-dialog">
+        <form method="dialog">
+            <span class="dialog-icon">!</span>
+            <h2>Excluir marca?</h2>
+            <p>A marca <strong id="brand-delete-name"></strong> será removida. Essa ação não pode ser desfeita.</p>
+            <p>Marcas com dispositivos vinculados podem não ser excluídas. Nesse caso, desvincule os dispositivos antes de tentar novamente.</p>
+            <p class="form-error" id="brand-delete-error" role="alert"></p>
+            <div class="form-actions"><button class="button secondary" value="cancel">Cancelar</button><button class="button danger" id="brand-confirm-delete" type="button">Sim, excluir</button></div>
+        </form>
+    </dialog>
 </div>
 </body>
 </html>
